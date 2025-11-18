@@ -1,0 +1,26 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class InputReader : MonoBehaviour ,InputSystem_Actions.IPlayerActions
+{
+    InputSystem_Actions inputActions;
+    
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+        inputActions.Player.SetCallbacks(this);
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+       InputEventBus.OnMove(context.ReadValue<float>());
+    }
+}
