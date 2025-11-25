@@ -23,4 +23,11 @@ public class InputReader : MonoBehaviour ,InputSystem_Actions.IPlayerActions
     {
        InputEventBus.OnMove(context.ReadValue<float>());
     }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            InputEventBus.OnJump();
+        }
+    }
 }

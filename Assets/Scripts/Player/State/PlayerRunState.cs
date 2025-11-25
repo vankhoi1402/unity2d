@@ -18,7 +18,7 @@ public class PlayerRunState : PlayerBaseState
     public override void Update() { }
     public override void FixUpdate() {
         controller._movement.Move(controller.MoveInput);
-        Debug.Log("soso");
+        
     
     }
     public override void Exit()

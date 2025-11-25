@@ -60,6 +60,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void HandleMove(float dir)
     {
         controller.SetMoveInput(dir);
+        if (sm.CurrentStateID == (int)PlayerStateID.Jump) return; 
         // Logic di chuyển: Nếu có input di chuyển (dir != 0) VÀ đang ở trạng thái Idle, 
         // thì chuyển sang Run. 
         if (Mathf.Abs(dir) > 0.01f && sm.CurrentStateID == (int)PlayerStateID.Idle)
@@ -93,5 +94,6 @@ public class PlayerStateMachine : MonoBehaviour
             sm.Transition((int)PlayerStateID.Attack);
         }
     }
+    
     
 }

@@ -21,17 +21,17 @@ public abstract class AnimationManager : MonoBehaviour
 
     public void Play(PlayerAnimID id, bool force = false)
     {
-        Debug.Log("PLAY REQUEST: " + id);
+       // Debug.Log("PLAY REQUEST: " + id);
         int key = (int)id; // chuyển enum sang int
         if (!force && currentID == key) return;
 
         currentID = key;
         if (!map.ContainsKey(key))
         {
-            Debug.LogError("Animation ID not found in map: " + key);
+           // Debug.LogError("Animation ID not found in map: " + key);
             return;
         }
-        Debug.Log("PLAYING CLIP = " + map[key]);
+       // Debug.Log("PLAYING CLIP = " + map[key]);
 
         animator.Play(map[key], 0);
     }

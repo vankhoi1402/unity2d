@@ -5,7 +5,8 @@ public enum PlayerAnimID
 {
     Idle ,
     Run ,
-    Attack
+    Attack,
+    Jump
 }
 
 public class PlayerAnimationManager : AnimationManager
