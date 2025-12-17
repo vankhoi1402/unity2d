@@ -4,5 +4,8 @@ public enum PlayerStateID
     Run,
     Jump,
     Attack,
-    Dead
+    Dead,
+    Hurt,
+    Attack2,
+    Attack3
 }

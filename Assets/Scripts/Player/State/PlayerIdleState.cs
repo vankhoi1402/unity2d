@@ -9,8 +9,8 @@ public class PlayerIdleState : PlayerBaseState
         // Không cần viết lại this.sm = sm;
     }
    public override void Enter() {
-       controller._database.Play(PlayerAnimID.Idle);
-        Debug.Log("State idle");
+        controller._database.CrossFade((int)PlayerAnimID.Idle,0.25f);
+        //Debug.Log("State idle");
     
 
     }

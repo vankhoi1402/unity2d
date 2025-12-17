@@ -13,12 +13,12 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Boss
+  - BodyPlayer
+  - AttackPlayer
+  - BodyBoss
+  - AttackBoss
   - 
   - 
   - 
@@ -41,6 +41,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Boss
+    uniqueID: 1099385
+    locked: 0
+  - name: Player
+    uniqueID: 1276855633
+    locked: 0
+  - name: Vfx
+    uniqueID: 2903926233
     locked: 0
   m_RenderingLayers:
   - Default

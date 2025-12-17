@@ -10,7 +10,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void Enter()
     {
         // Bật animation
-        controller._database.Play(PlayerAnimID.Jump);
+        controller._database.Play((int)PlayerAnimID.Jump);
 
         // Thực hiện nhảy
         controller._movement.Jump();
@@ -20,25 +20,22 @@ public class PlayerJumpState : PlayerBaseState
 
 
         // Debug
-        Debug.Log("➡ Enter Jump");
+       // Debug.Log("➡ Enter Jump");
     }
 
     public override void Update()
     {
-        //if (!controller._movement.IsGrounded())
-        //{
-        //    Debug.Log(controller._movement.IsGrounded());
-        //    if (Mathf.Abs(controller.MoveInput) > 0.01f)
-        //        sm.Transition((int)PlayerStateID.Run);
-        //    else
-        //        sm.Transition((int)PlayerStateID.Idle);
-        //}
+        
         controller._movement.Move(controller.MoveInput);
         if (Time.time - enterTime < 0.1f)
             return;
         if (controller._movement.IsGrounded())
         {
-            sm.Transition((int)PlayerStateID.Idle);
+            Debug.Log(controller._movement.IsGrounded());
+            if (Mathf.Abs(controller.MoveInput) > 0.01f)
+                sm.Transition((int)PlayerStateID.Run);
+            else
+                sm.Transition((int)PlayerStateID.Idle);
         }
     }
 
@@ -52,7 +49,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void Exit()
     {
         
-        Debug.Log("⬅ Exit Jump");
+       // Debug.Log("⬅ Exit Jump");
         
     }
 }

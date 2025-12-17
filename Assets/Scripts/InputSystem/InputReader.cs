@@ -30,4 +30,11 @@ public class InputReader : MonoBehaviour ,InputSystem_Actions.IPlayerActions
             InputEventBus.OnJump();
         }
     }
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            InputEventBus.OnAttack();
+        }
+    }
 }

@@ -19,7 +19,7 @@ public abstract class AnimationManager : MonoBehaviour
     // Mỗi class con override hàm này tự build animation map
     protected abstract void InitDatabase();
 
-    public void Play(PlayerAnimID id, bool force = false)
+    public void Play(int id, bool force = false)
     {
        // Debug.Log("PLAY REQUEST: " + id);
         int key = (int)id; // chuyển enum sang int
@@ -39,9 +39,10 @@ public abstract class AnimationManager : MonoBehaviour
 
     public void CrossFade(int id, float duration = 0.1f)
     {
-        if (currentID == id) return;
+        int key = (int)id;
+        if (currentID == key) return;
 
-        currentID = id;
-        animator.CrossFade(map[id], duration, 0);
+        currentID = key;
+        animator.CrossFade(map[key], duration, 0);
     }
 }

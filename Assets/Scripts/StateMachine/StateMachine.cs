@@ -68,4 +68,9 @@ public class StateMachine<T> where T : MonoBehaviour
     {
         currentState?.FixUpdate();
     }
+    // Phương thức thuận tiện để lấy ID trạng thái hiện tại
+    public int GetCurrentStateID()
+    {
+        return CurrentStateID;
+    }
 }

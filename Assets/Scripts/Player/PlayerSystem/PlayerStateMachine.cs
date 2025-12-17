@@ -8,6 +8,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerController controller;
     private StateMachine<PlayerController> sm;
+   
 
     // --- Unity Lifecycle Methods ---
 
@@ -24,6 +25,8 @@ public class PlayerStateMachine : MonoBehaviour
         sm.AddState((int)PlayerStateID.Run, new PlayerRunState(controller, sm));
         sm.AddState((int)PlayerStateID.Jump, new PlayerJumpState(controller, sm)); // Thêm State cho Jump và Attack
         sm.AddState((int)PlayerStateID.Attack, new PlayerAttackState(controller, sm));
+        sm.AddState((int)PlayerStateID.Attack2, new PlayerAttack2State(controller, sm));
+        sm.AddState((int)PlayerStateID.Attack3, new PlayerAttack3State(controller, sm));
 
         // Cấu hình trạng thái ban đầu (ví dụ: Idle)
         sm.SetInitialState((int)PlayerStateID.Idle);
@@ -35,6 +38,7 @@ public class PlayerStateMachine : MonoBehaviour
         InputEventBus.OnMove += HandleMove;
         InputEventBus.OnJump += HandleJump;
         InputEventBus.OnAttack += HandleAttack;
+        Debug.Log("OnEnable");
     }
 
     void OnDisable()
@@ -43,6 +47,7 @@ public class PlayerStateMachine : MonoBehaviour
         InputEventBus.OnMove -= HandleMove;
         InputEventBus.OnJump -= HandleJump;
         InputEventBus.OnAttack -= HandleAttack;
+        Debug.Log("OnDisable");
     }
 
     public void Update()
@@ -60,7 +65,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void HandleMove(float dir)
     {
         controller.SetMoveInput(dir);
-        if (sm.CurrentStateID == (int)PlayerStateID.Jump) return; 
+        if (sm.CurrentStateID == (int)PlayerStateID.Jump) return;
         // Logic di chuyển: Nếu có input di chuyển (dir != 0) VÀ đang ở trạng thái Idle, 
         // thì chuyển sang Run. 
         if (Mathf.Abs(dir) > 0.01f && sm.CurrentStateID == (int)PlayerStateID.Idle)
@@ -73,7 +78,7 @@ public class PlayerStateMachine : MonoBehaviour
         {
             sm.Transition((int)PlayerStateID.Idle);
         }
-        
+
     }
 
     private void HandleJump()
@@ -88,12 +93,20 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void HandleAttack()
     {
-        // Khi nhận sự kiện Attack, chuyển sang trạng thái Attack
-        if (sm.CurrentStateID != (int)PlayerStateID.Attack) // Tránh gián đoạn attack đang diễn ra
+        // Nếu đang Idle/Run → vào Attack lần đầu
+        if (sm.CurrentStateID == (int)PlayerStateID.Idle ||
+            sm.CurrentStateID == (int)PlayerStateID.Run)
         {
             sm.Transition((int)PlayerStateID.Attack);
         }
+        // 👇👇 Cần thêm Attack2, Attack3 vào đây 👇👇
+        else if (sm.CurrentStateID == (int)PlayerStateID.Attack ||
+                 sm.CurrentStateID == (int)PlayerStateID.Attack2 || // THÊM DÒNG NÀY
+                 sm.CurrentStateID == (int)PlayerStateID.Attack3)   // VÀ DÒNG NÀY (nếu có Attack 3)
+        {
+            controller.SetQueueAttack(true); // Cờ để combo
+        }
     }
-    
-    
+
+
 }

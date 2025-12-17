@@ -10,8 +10,8 @@ public class PlayerRunState : PlayerBaseState
     }
     public override void Enter()
     {
-        controller._database.Play(PlayerAnimID.Run);
-        Debug.Log("Run " );
+        controller._database.CrossFade((int)PlayerAnimID.Run,0.3f);
+        //Debug.Log("Run " );
 
 
     }

@@ -11,3 +11,4 @@ public static class InputEventBus
     public static void Jump() => OnJump?.Invoke();
     public static void Attack() => OnAttack?.Invoke();
 }
+
